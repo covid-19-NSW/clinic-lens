@@ -1,0 +1,54 @@
+html,
+body,
+#wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+
+#map {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  z-index: 5
+}
+/* 
+#storage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0%;
+  z-index: auto;
+  overflow: auto;
+} */
+
+#appendSVG {
+  width: 99%;
+  height: 100%;
+
+}
+
+
+.divlegend {
+  position: absolute;
+  text-align: left;
+  width: 185px;
+  font-size: 14px;
+  background: #444444;
+  padding: 4px;
+  /*padding: 2vw;*/
+  /*font: 1vw sans-serif;*/
+  border: 0px;
+  border-radius: 5px;
+  color: white;
+  /*字体颜色*/
+  box-shadow: -3px 3px 15px #888888;
+  opacity: 0.8;
+  display: none;
+  overflow: hidden;
+  z-index: auto
+}
