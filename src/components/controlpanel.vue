@@ -1,40 +1,40 @@
 <template>
   <div class="page1-container">
     <div class="Controlpanel_content" id="Controlpanel_content">
-      <div class="form" id = "form">
-        <el-form ref="form" :model="form" label-width="100px">
-          <el-form-item label="Datasets:">
-            <el-select v-model="form.region" placeholder="Please select">
-              <el-option label="NSW COVID-19 Datasets" value=""></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Time Scale:">
-            <el-col :span="11">
-              <el-date-picker type="date" placeholder="From" v-model="form.date1" style="width: 100%;"></el-date-picker>
-            </el-col>
-            <el-col class="line" :span="2"> - </el-col>
-            <el-col :span="11">
-              <el-date-picker type="date" placeholder="To" v-model="form.date2" style="width: 100%;"></el-date-picker>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="Columns:">
-            <el-radio-group v-model="form.resource">
-              <el-radio label="Optimized"></el-radio>
-              <el-radio label="All"></el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="Lens Size">
-            <el-slider
-                v-model="slide">
-            </el-slider>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">Create</el-button>
-            <el-button>Cancel</el-button>
-          </el-form-item>
-        </el-form>
+<!--      <div class="form" id = "form">-->
+<!--        <el-form ref="form" :model="form" label-width="100px">-->
+<!--          <el-form-item label="Datasets:">-->
+<!--            <el-select v-model="form.region" placeholder="Please select">-->
+<!--              <el-option label="NSW COVID-19 Datasets" value=""></el-option>-->
+<!--            </el-select>-->
+<!--          </el-form-item>-->
+<!--          <el-form-item label="Time Scale:">-->
+<!--            <el-col :span="11">-->
+<!--              <el-date-picker type="date" placeholder="From" v-model="form.date1" style="width: 100%;"></el-date-picker>-->
+<!--            </el-col>-->
+<!--            <el-col class="line" :span="2"> - </el-col>-->
+<!--            <el-col :span="11">-->
+<!--              <el-date-picker type="date" placeholder="To" v-model="form.date2" style="width: 100%;"></el-date-picker>-->
+<!--            </el-col>-->
+<!--          </el-form-item>-->
+<!--          <el-form-item label="Columns:">-->
+<!--            <el-radio-group v-model="form.resource">-->
+<!--              <el-radio label="Optimized"></el-radio>-->
+<!--              <el-radio label="All"></el-radio>-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
+<!--          <el-form-item label="Lens Size">-->
+<!--            <el-slider-->
+<!--                v-model="slide">-->
+<!--            </el-slider>-->
+<!--          </el-form-item>-->
+<!--          <el-form-item>-->
+<!--            <el-button type="primary" @click="onSubmit">Create</el-button>-->
+<!--            <el-button>Cancel</el-button>-->
+<!--          </el-form-item>-->
+<!--        </el-form>-->
 
-      </div>
+<!--      </div>-->
 
       <div class="ColorLegend" id="ColorLegend">
 
