@@ -283,7 +283,7 @@ function IntendedTreeMatrix(treedata, cliniccount){
                         .style('font-size','12px')
                         .style('color','white')
                         .html(tempword + ":" +'<br>'+ tempstatus + '</span>')
-                    })
+                })
                     .on('mouseout',function(d){
                         d3v4_2.selectAll('.rect1').style('opacity',1)
                         d3v4_2.select('.infobox').style('display','none');
@@ -597,9 +597,9 @@ function IntendedTreeMatrix(treedata, cliniccount){
 
                 //hightlight the bar
                 gird2Bar.on('mouseover',function(d){
-                        d3v4_2.selectAll('.rect2').style('opacity','.6')
-                        d3v4_2.select(this).transition().duration(100).style('opacity',1)
-                    })
+                    d3v4_2.selectAll('.rect2').style('opacity','.6')
+                    d3v4_2.select(this).transition().duration(100).style('opacity',1)
+                })
                     .on('mouseout',function(d){
                         d3v4_2.selectAll('.rect2').style('opacity',1)
                         d3v4_2.select('.infobox').style('display','none')

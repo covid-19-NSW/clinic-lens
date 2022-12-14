@@ -19,10 +19,16 @@
                   <el-date-picker type="date" placeholder="To" v-model="form.date2" style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
+              <el-form-item label="Unit:" label-width="70px">
+                <el-radio-group v-model="form.resource">
+                  <el-radio :label="1">LGA-based</el-radio>
+                  <el-radio :label="2">Postal-based</el-radio>
+                </el-radio-group>
+              </el-form-item>
               <el-form-item label="Columns:" label-width="70px">
                 <el-radio-group v-model="form.resource">
-                  <el-radio label="Optimized"></el-radio>
-                  <el-radio label="All"></el-radio>
+                  <el-radio :label="1">Optimized</el-radio>
+                  <el-radio :label="2">All</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="Lens Size:" label-width="80px">
@@ -118,7 +124,9 @@
 export default {
   name: "container",
   data() {
-    return {slide: 100,
+    return {
+      radio: 1,
+      slide: 100,
       form: {
         name: '',
         region: '',

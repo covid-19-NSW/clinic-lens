@@ -3,7 +3,7 @@
 
 
     <div class="intended_content" id="intended_content"></div>
-<!--    <el-button @click="handleClick">Predict</el-button>-->
+    <!--    <el-button @click="handleClick">Predict</el-button>-->
     <div class="infobox"></div>
   </div>
 </template>

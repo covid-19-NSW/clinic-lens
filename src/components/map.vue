@@ -892,82 +892,83 @@ export default {
       });
 
       function Allpointset(callback) {
-        readyforstorage = 0;
-        // 获取地图中心点
-        if (lensflag != 1) {
-          d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
-          const mapCenter = map.getCenter();
-          const screenCenter = map.project(mapCenter);
-          const circleLeftPoi = map.unproject([
-            screenCenter.x + innerRadius,
-            screenCenter.y,
-          ]);
+        if (lockflag == 1) {
+          readyforstorage = 0;
+          // 获取地图中心点
+          if (lensflag != 1) {
+            d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
+            const mapCenter = map.getCenter();
+            const screenCenter = map.project(mapCenter);
+            const circleLeftPoi = map.unproject([
+              screenCenter.x + innerRadius,
+              screenCenter.y,
+            ]);
 
-          // 圆的半径在地图上面的距离
-          const distance = getDistance(
-              [circleLeftPoi.lng, mapCenter.lat],
-              [mapCenter.lng, mapCenter.lat]
-          );
-          // console.log(turf.point([circleLeftPoi.lng, mapCenter.lat]));
-          // console.log(mapCenter);
-          // console.log(circleLeftPoi);
-          // console.log(distance);
-
-          const circle = turf.circle(
-              turf.point([mapCenter.lng, mapCenter.lat]),
-              distance
-          );
-          map.getSource("circle").setData(turf.featureCollection([circle]));
-
-          if (moveflag == 0) return;
-
-          // If bbox exists. use this value as the argument for `queryRenderedFeatures`
-          if (circle) {
-            const bbox = turf.bbox(circle);
-
-            // 从source中获取features数据
-            const features = map.querySourceFeatures("lga-polygon", {
-              sourceLayer: "polygon-fill",
-            });
-
-            var intersectFeatures = [];
-            features.forEach((f) => {
-              // 判断是否在圆圈内
-              var inCircle = false;
-              var explode = turf.explode(f);
-              for (let p of explode.features) {
-                if (turf.booleanPointInPolygon(p, circle)) {
-                  inCircle = true;
-                } else {
-                  inCircle = false;
-                  break;
-                }
-              }
-              if (inCircle) {
-                intersectFeatures.push(f);
-              }
-            });
-
-            // Run through the selected features and set a filter
-            // to match features with unique FIPS codes to activate
-            // the `counties-highlighted` layer.
-            var filter = intersectFeatures.reduce(
-                function(memo, feature) {
-                  memo.push(feature.properties.lgacode);
-                  //console.log(memo);
-                  return memo;
-                },
-                ["in", "lgacode"]
+            // 圆的半径在地图上面的距离
+            const distance = getDistance(
+                [circleLeftPoi.lng, mapCenter.lat],
+                [mapCenter.lng, mapCenter.lat]
             );
+            // console.log(turf.point([circleLeftPoi.lng, mapCenter.lat]));
+            // console.log(mapCenter);
+            // console.log(circleLeftPoi);
+            // console.log(distance);
 
-            LGAarrDuplicate = [];
-            LGAarrNoDuplicate = [];
+            const circle = turf.circle(
+                turf.point([mapCenter.lng, mapCenter.lat]),
+                distance
+            );
+            map.getSource("circle").setData(turf.featureCollection([circle]));
 
-            if (lockflag == 1) {
+            if (moveflag == 0) return;
+
+            // If bbox exists. use this value as the argument for `queryRenderedFeatures`
+            if (circle) {
+              const bbox = turf.bbox(circle);
+
+              // 从source中获取features数据
+              const features = map.querySourceFeatures("lga-polygon", {
+                sourceLayer: "polygon-fill",
+              });
+
+              var intersectFeatures = [];
+              features.forEach((f) => {
+                // 判断是否在圆圈内
+                var inCircle = false;
+                var explode = turf.explode(f);
+                for (let p of explode.features) {
+                  if (turf.booleanPointInPolygon(p, circle)) {
+                    inCircle = true;
+                  } else {
+                    inCircle = false;
+                    break;
+                  }
+                }
+                if (inCircle) {
+                  intersectFeatures.push(f);
+                }
+              });
+
+              // Run through the selected features and set a filter
+              // to match features with unique FIPS codes to activate
+              // the `counties-highlighted` layer.
+              var filter = intersectFeatures.reduce(
+                  function (memo, feature) {
+                    memo.push(feature.properties.lgacode);
+                    //console.log(memo);
+                    return memo;
+                  },
+                  ["in", "lgacode"]
+              );
+
+              LGAarrDuplicate = [];
+              LGAarrNoDuplicate = [];
+
+
               //console.log(filter.slice(2));
               //console.log(filterpoint.slice(2,filter.length));
               LGAarr = uniquearr(filter.slice(2, filter.length)); //1
-
+              // if (lockflag == 1) {
               map.setFilter("polygon-highlighted", [
                 "in",
                 "lgacode",
@@ -978,16 +979,17 @@ export default {
                 "lgacode",
                 ...LGAarr,
               ]);
-            }
+              // }
 
-            //console.log(LGAarr); //get lgas in circle
-            var tempsqllga = "";
-            for (var i = 0; i < LGAarr.length; i++) {
-              tempsqllga += ' lga_code19 = "' + LGAarr[i] + '" or';
-            }
-            tempsqllga = tempsqllga.substring(0, tempsqllga.length - 2);
+              //console.log(LGAarr); //get lgas in circle
+              var tempsqllga = "";
+              for (var i = 0; i < LGAarr.length; i++) {
+                tempsqllga += ' lga_code19 = "' + LGAarr[i] + '" or';
+              }
+              tempsqllga = tempsqllga.substring(0, tempsqllga.length - 2);
 
-            callback(tempsqllga);
+              callback(tempsqllga);
+            }
           }
         }
 

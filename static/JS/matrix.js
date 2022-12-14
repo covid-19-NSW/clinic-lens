@@ -286,6 +286,7 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 
 			})
 			.on("mousedown", function(od, i, n) {
+				d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
 				var temptitle=document.getElementById("steplinetitle");
 				temptitle.innerHTML='Testing Capabilities Prediction of ' + od.caseslist[0]["lga_name19"] + ", LGA" + od.caseslist[0]["lga_code19"];
 				//console.log(od);
@@ -432,7 +433,8 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 
 										DrawStepLine(getwholedataarr,getgroupdataarr, w);
 										w++;
-										console.log(selectLGApredictiondata);
+										//console.log(selectLGApredictiondata);
+										d3.select('#loading').attr('class', 'mapbox-gl-draw_symbol_correct');
 										// console.log(getwholedataarr);
 										// console.log(getgroupdataarr);
 										// console.log(temp);
@@ -538,8 +540,8 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 				console.log(od);
 				divlegend.style("display","none");
 				divlegend.html("LGA: "+ od["LGAcode"] +"</br>"
-				+ "Name: "+ od["LGAname"] +"</br>"
-				+ "Testing Cases: "+ od["caseSum"] +"</br>")
+					+ "Name: "+ od["LGAname"] +"</br>"
+					+ "Testing Cases: "+ od["caseSum"] +"</br>")
 					.style("left", (d3.event.pageX+10) + "px")
 					//d3.event.pageX 鼠标坐标x
 					//get divlegendwidth
@@ -779,8 +781,8 @@ function FindMatrixInfo(data, need,type){
 				}
 				//console.log(i + 1);
 				temphourarr.push({
-					 "name": tempweekday,
-					 "data" :onedaytemp
+					"name": tempweekday,
+					"data" :onedaytemp
 				})
 			}
 			//console.log(temphourarr);

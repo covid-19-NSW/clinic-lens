@@ -185,20 +185,20 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 			if (te%2 == 1){
 				let tempselection = d3v4_2.select("#stepsvg").select("g").select("#stream_"+tempkeyid).selectAll(".rect");
 				tempselection.attr("fill", (d,o) =>{
-						//console.log(d["data"])
-						// console.log(tempkeyid+"status");
-						// console.log(d["data"][tempkeyid+"status"]);
-						if (d["data"][tempkeyid+"status"] == "+"){
-							// console.log("+",d["data"])
-							return colorpanel.stepline.increase;
-						}else if(d["data"][tempkeyid+"status"] == "-") {
-							// console.log("-",d["data"])
-							return colorpanel.stepline.decrease;
-						}
-						else {
-							return 'white';
-						}
-					})
+					//console.log(d["data"])
+					// console.log(tempkeyid+"status");
+					// console.log(d["data"][tempkeyid+"status"]);
+					if (d["data"][tempkeyid+"status"] == "+"){
+						// console.log("+",d["data"])
+						return colorpanel.stepline.increase;
+					}else if(d["data"][tempkeyid+"status"] == "-") {
+						// console.log("-",d["data"])
+						return colorpanel.stepline.decrease;
+					}
+					else {
+						return 'white';
+					}
+				})
 					.attr("fill-opacity", 0.7)
 					.attr("id", (d,o) =>{
 						return d["data"][tempkeyid+"status"];
@@ -220,7 +220,7 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 			.curve(d3v4_2.curveStep) // apply smoothing to the line
 		)
 		.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top) + ")");
-		//.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top)+ ")");
+	//.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top)+ ")");
 
 	if(swithmodeflag == 1){
 		// Add the line
