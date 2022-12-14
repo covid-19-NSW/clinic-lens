@@ -2,7 +2,7 @@
   <div class="page1-container">
     <div class="title">Select:
       <el-dropdown>
-        <span class="el-dropdown-link">
+        <span class="el-input el-input--suffix">
           Random Forest<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -142,6 +142,12 @@ export default {
 }
 .el-icon-arrow-down {
   font-size: 10px;
+}
+
+.page1-container /deep/ .el-dropdown-link,.title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #303133;
 }
 
 </style>
