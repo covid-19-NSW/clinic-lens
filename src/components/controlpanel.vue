@@ -42,7 +42,25 @@
                 Map & Storage View:
               </div>
               <div style = 'height: 60px'>
+                <div style = 'height: 20px'>
+                  <div style = 'font-size: 5px;width: 25%'>
+                    Lens:
+                  </div>
+                  <div id="lenscolor" style = 'width: 75%;padding-left: 1em'></div>
+                </div>
 
+                <div style = 'height: 20px'>
+                  <div style = 'font-size: 5px;width: 25%'>
+                    Polygons:
+                  </div>
+                  <div id="polgyonscolor" style = 'width: 75%;padding-left: 1em'></div>
+                </div>
+                <div style = 'height: 20px'>
+                  <div style = 'font-size: 5px;width: 25%'>
+                    Heatmap:
+                  </div>
+                  <div id="heatmapcolor" style = 'width: 75%;padding-left: 1em'></div>
+                </div>
               </div>
             </div>
             <div style = 'height: 40px'>
@@ -50,26 +68,39 @@
                 Intended Tree-Matrix View:
               </div>
               <div style = 'height: 20px'>
-
+                <div style = 'font-size: 5px;width: 25%'>
+                  Factors:
+                </div>
+                <div id="factorcolor" style = 'width: 75%;padding-left: 1em'></div>
               </div>
             </div>
-            <div style = 'height: 40px'>
+            <div style = 'height: 60px'>
               <div style = 'height: 20px'>
                 Prediction View:
               </div>
-              <div style = 'height: 20px'>
-
+              <div style = 'height: 40px'>
+                <div style = 'height: 20px'>
+                  <div style = 'font-size: 5px;width: 25%'>
+                    Effect:
+                  </div>
+                  <div id="effectcolor" style = 'width: 75%;padding-left: 1em'></div>
+                </div>
+                <div style = 'height: 20px'>
+                  <div style = 'font-size: 5px;width: 25%'>
+                    Trends:
+                  </div>
+                  <div id="trendcolor" style = 'width: 75%;padding-left: 1em'></div>
+                </div>
               </div>
             </div>
-            <div style = 'height: 40px'>
-              <div style = 'height: 20px; font-size: 6px'>
+            <div style = 'height: 20px'>
+              <div style = 'width: 25%'>
                 Theme:
               </div>
-              <div style = 'height: 20px'>
-
-              </div>
-
+              <div id="Themecolor" style = 'width: 75%;padding-left: 1em'></div>
             </div>
+
+
           </el-collapse-item>
         </el-collapse>
 
@@ -165,7 +196,7 @@ export default {
 #form /deep/ .el-input__inner {
   height: 30px!important;
   line-height: 32px;
-  font-size: 6px;
+  font-size: 10px;
 }
 #form /deep/ .el-select-dropdown__item {
   height: 30px;
