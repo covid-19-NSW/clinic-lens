@@ -11,7 +11,7 @@
           <Control />
         </div>
         <div class="bottom bar">
-          <p class="title title-padding">Regression Model</p>
+          <p class="title title-padding">Model Features View</p>
             <modulestat />
         </div>
       </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="bottom bar">
           <div class="title-box">
-            <p class="title">Intended Tree-Matrix Comparison</p>
+            <p class="title">Intended Tree-Matrix Comparison View</p>
             <div class="icon-box">
               <img src="../assets/prediction.png" alt="prediction" @click="PredictClick()">
               <img src="../assets/dataoutput.png" alt="" @click="">
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="bottom1 bar" >
-      <p class="title" id="steplinetitle">Testing Capabilities Prediction</p>
+      <p class="title" id="steplinetitle">Testing Capabilities Prediction View</p>
       <StepLineBar/>
     </div>
 
