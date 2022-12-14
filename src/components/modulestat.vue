@@ -1,8 +1,11 @@
 <template>
   <div class="page1-container">
-    <div class="title">Select:
+    <div class="el-item">
+      <div class="el-item__label">Select:
+      </div>
+    <div>
       <el-dropdown>
-        <span class="el-input el-input--suffix">
+        <span class="el-input__inner">
           Random Forest<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -16,6 +19,11 @@
       </el-dropdown>
 
     </div>
+
+    </div>
+
+
+
     <div class="module_content" id="module_content"></div>
   </div>
 </template>
@@ -144,10 +152,23 @@ export default {
   font-size: 10px;
 }
 
-.page1-container /deep/ .el-dropdown-link,.title {
-  font-size: 13px;
-  font-weight: 500;
+
+.page1-container .el-item__label {
+  width: 70px;
+  font-size: 10px;
+  padding-right: 12px;
+  /*font-weight: 500;*/
   color: #303133;
+}
+
+.page1-container .el-item{
+  height: 41px
+}
+
+.el-input__inner {
+  height: 30px!important;
+  line-height: 32px;
+  font-size: 6px;
 }
 
 </style>

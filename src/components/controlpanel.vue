@@ -37,14 +37,37 @@
             </el-form>
           </el-collapse-item>
           <el-collapse-item title="Color Palette" name="2" >
-            <div style = 'height: 80px'>Map & Storage View
-              <div>
+            <div style = 'height: 80px'>
+              <div style = 'height: 20px'>
+                Map & Storage View:
+              </div>
+              <div style = 'height: 60px'>
 
               </div>
             </div>
-            <div style = 'height: 40px'>Intended Tree-Matrix View</div>
-            <div style = 'height: 40px'>Prediction View</div>
-            <div style = 'height: 40px'>Theme
+            <div style = 'height: 40px'>
+              <div style = 'height: 20px'>
+                Intended Tree-Matrix View:
+              </div>
+              <div style = 'height: 20px'>
+
+              </div>
+            </div>
+            <div style = 'height: 40px'>
+              <div style = 'height: 20px'>
+                Prediction View:
+              </div>
+              <div style = 'height: 20px'>
+
+              </div>
+            </div>
+            <div style = 'height: 40px'>
+              <div style = 'height: 20px; font-size: 6px'>
+                Theme:
+              </div>
+              <div style = 'height: 20px'>
+
+              </div>
 
             </div>
           </el-collapse-item>
@@ -142,7 +165,7 @@ export default {
 #form /deep/ .el-input__inner {
   height: 30px!important;
   line-height: 32px;
-  font-size: 12px;
+  font-size: 6px;
 }
 #form /deep/ .el-select-dropdown__item {
   height: 30px;
