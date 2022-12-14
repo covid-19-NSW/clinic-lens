@@ -19,10 +19,10 @@
                   <el-date-picker type="date" placeholder="To" v-model="form.date2" style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
-              <el-form-item label="Unit:" label-width="70px">
+              <el-form-item label="Unit-based:" label-width="70px">
                 <el-radio-group v-model="form.resource">
-                  <el-radio :label="1">LGA-based</el-radio>
-                  <el-radio :label="2">Postal-based</el-radio>
+                  <el-radio :label="1">LGAs</el-radio>
+                  <el-radio :label="2">Postal Zones</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="Columns:" label-width="70px">
