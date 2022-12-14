@@ -3,22 +3,22 @@
     <div class="el-item">
       <div class="el-item__label">Select:
       </div>
-    <div>
-      <el-dropdown>
+      <div>
+        <el-dropdown>
         <span class="el-input__inner">
           Random Forest<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>Decision Tree</el-dropdown-item>
-          <el-dropdown-item divided>GBDT</el-dropdown-item>
-          <el-dropdown-item>CatBoost</el-dropdown-item>
-          <el-dropdown-item>Lightgbm</el-dropdown-item>
-          <el-dropdown-item>XGBoost</el-dropdown-item>
-          <el-dropdown-item divided>Linear</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>Decision Tree</el-dropdown-item>
+            <el-dropdown-item divided>GBDT</el-dropdown-item>
+            <el-dropdown-item>CatBoost</el-dropdown-item>
+            <el-dropdown-item>Lightgbm</el-dropdown-item>
+            <el-dropdown-item>XGBoost</el-dropdown-item>
+            <el-dropdown-item divided>Linear</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
 
-    </div>
+      </div>
 
     </div>
 
@@ -154,21 +154,36 @@ export default {
 
 
 .page1-container .el-item__label {
-  width: 70px;
-  font-size: 10px;
-  padding-right: 12px;
-  /*font-weight: 500;*/
+  width: 50px;
+  font-size: 13px;
+  /* padding-right: 12px; */
+  font-weight: 500;
   color: #303133;
 }
 
 .page1-container .el-item{
-  height: 41px
+  height: 41px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .el-input__inner {
-  height: 30px!important;
-  line-height: 32px;
-  font-size: 6px;
-}
 
+  height: 30px!important;
+  line-height: 28px;
+  font-size: 13px;
+}
+.el-dropdown-link {
+  cursor: pointer;
+  color: #252525;
+}
+.el-select-dropdown__item.selected {
+  color: #252525;
+}
+.el-dropdown-menu li:focus,.el-dropdown-menu li:not(.is-disabled):hover{
+  color: #252525;
+  background-color: #bdbdbd;
+  font-weight: 700;
+}
 </style>
