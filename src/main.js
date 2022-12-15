@@ -9,6 +9,7 @@ import locale from '../node_modules/element-ui/lib/locale/lang/en'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI,{locale});
+ElementUI.Tooltip.props.openDelay.default = 200
 
 /* eslint-disable no-new */
 new Vue({

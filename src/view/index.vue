@@ -11,7 +11,7 @@
           <Control />
         </div>
         <div class="bottom bar">
-          <p class="title title-padding">Model Features View</p>
+          <p class="title title-padding">Regression Model</p>
           <modulestat />
         </div>
       </div>
@@ -23,25 +23,31 @@
       </div>
       <div class="right">
         <div class="top bar">
-          <p class="title">Storage View</p>
+          <p class="title title-padding">Storage View</p>
           <Storage />
         </div>
         <div class="bottom bar">
           <div class="title-box">
-            <p class="title">Intended Tree-Matrix Comparison View</p>
-            <div class="icon-box">
-              <img src="../assets/prediction.png" alt="prediction" @click="PredictClick()">
-              <img src="../assets/dataoutput.png" alt="" @click="">
-
-              <!--              <img src="../assets/img.jpg" alt="" @click="handleCal3()">-->
-            </div>
+            <p class="title">Intended Tree-Matrix Comparison</p>
+            <ul class="icon-box">
+              <li @click="PredictClick()">
+                <img src="../assets/prediction.png" alt="">
+              </li>
+            </ul>
           </div>
           <IntendedTreeMatrix />
         </div>
       </div>
     </div>
     <div class="bottom1 bar" >
-      <p class="title" id="steplinetitle">Testing Capabilities Prediction View</p>
+      <div class="title-box">
+        <p class="title" id="steplinetitle">Testing Capabilities Prediction</p>
+        <ul class="icon-box">
+          <li @click="PredictClick()">
+            <img src="../assets/prediction.png" alt="">
+          </li>
+        </ul>
+      </div>
       <StepLineBar/>
     </div>
 
@@ -393,14 +399,6 @@ html,body {
   width: 12px;
   height: 16px;
 }
-.title {
-  padding-left: 6px;
-  padding-top: 6px;
-  /*color: #9f7f63;*/
-  color: #3f2e2d;
-  font-weight: 600;
-}
-
 .title-box {
   width: 99%;
   padding-left: 6px;
@@ -424,14 +422,30 @@ html,body {
 .icon-box {
   display: flex;
 }
-.icon-box img {
-  /* 宽高对应左边的字体大小 */
-  width: 25px;
-  height: 25px;
-  margin-left: 6px;
-  cursor: pointer;
+li {
+  list-style: none;
 }
-
+.icon-box li {
+  /* 宽高对应左边的字体大小 */
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  outline: none;
+  border: 0;
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+.icon-box img {
+  width: 22px;
+  height: 22px;
+}
 .bar {
   padding: 0 0.1875rem 0.5rem;
   margin-bottom: 10px;
