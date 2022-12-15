@@ -11,7 +11,7 @@
           <Control />
         </div>
         <div class="bottom bar">
-          <p class="title title-padding">Regression Model</p>
+          <p class="title title-padding">Regression Model View</p>
           <modulestat />
         </div>
       </div>
@@ -23,15 +23,17 @@
       </div>
       <div class="right">
         <div class="top bar">
-          <p class="title title-padding">Storage View</p>
+
+            <p class="title title-padding">Storage View</p>
+
           <Storage />
         </div>
         <div class="bottom bar">
           <div class="title-box">
-            <p class="title">Intended Tree-Matrix Comparison</p>
+            <p class="title">Indented Tree-Matrix Comparison View</p>
             <ul class="icon-box">
               <li @click="PredictClick()">
-                <img src="../assets/prediction.png" alt="">
+                <img src="../../static/Image/prediction.png" alt="">
               </li>
             </ul>
           </div>
@@ -41,10 +43,16 @@
     </div>
     <div class="bottom1 bar" >
       <div class="title-box">
-        <p class="title" id="steplinetitle">Testing Capabilities Prediction</p>
+        <p class="title" id="steplinetitle">Testing Capabilities Prediction View</p>
         <ul class="icon-box">
-          <li @click="PredictClick()">
-            <img src="../assets/prediction.png" alt="">
+          <li @click="SwitchMode()">
+            <img src="../../static/Image/colorbar.png" alt="">
+          </li>
+          <li @click="SwitchLine()">
+            <img src="../../static/Image/switchlinebar.png" alt="">
+          </li>
+          <li @click="">
+            <img src="../../static/Image/download.png" alt="">
           </li>
         </ul>
       </div>
@@ -349,9 +357,52 @@ export default {
         if(date.getDay()==6) week="5";
         return week;
       }
+    },
+
+    SwitchMode(){
+      //console.log(selectLGApredictiondata);
+      let templength = selectLGApredictiondata.length;
+      let globalstoragedata = selectLGApredictiondata;
+
+      if (swithmodeflag == 1){
+        swithmodeflag = 0;
+        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 2]["getgroupdataarr"], templength - 2);
+
+      }
+      else{
+        swithmodeflag = 1;
+        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
+      }
+
+    },
+
+    SwitchLine(){
+      let templength = selectLGApredictiondata.length;
+      let globalstoragedata = selectLGApredictiondata;
+      if (swithlinemodeflag == 1){
+        if (templength == 1){
+          swithlinemodeflag = 0;
+          DrawStepLine(globalstoragedata[0]["getwholedataarr"], globalstoragedata[0]["getgroupdataarr"], 0);
+        }
+        else{
+          swithlinemodeflag = 0;
+          DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
+
+        }
+      }
+      else{
+        swithlinemodeflag = 1;
+        if (templength == 1){
+          DrawCurveLine(globalstoragedata[0]["getwholedataarr"],[], 0);
+        }
+        else{
+          DrawCurveLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getwholedataarr"], templength - 1);
+        }
+      }
+
+
+
     }
-
-
 
 
   },
@@ -400,7 +451,7 @@ html,body {
   height: 16px;
 }
 .title-box {
-  width: 99%;
+  /*width: 99%;*/
   padding-left: 6px;
   padding-right: 16px;
   padding-top: 6px;
@@ -443,8 +494,8 @@ li {
   margin-left: 10px;
 }
 .icon-box img {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
 }
 .bar {
   padding: 0 0.1875rem 0.5rem;

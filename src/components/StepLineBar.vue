@@ -1,8 +1,6 @@
 <template>
   <div class="page1-container">
     <div class="step_content" id="step_content"></div>
-    <el-button @click="handleClick">Switch Mode</el-button>
-    <el-button @click="handleClickLine">Switch Curve/Step Line</el-button>
   </div>
 </template>
 
@@ -23,49 +21,6 @@ export default {
   },
   methods: {
     do(){
-
-
-    },
-    handleClick(){
-      //console.log(selectLGApredictiondata);
-      let templength = selectLGApredictiondata.length;
-      let globalstoragedata = selectLGApredictiondata;
-
-      if (swithmodeflag == 1){
-        swithmodeflag = 0;
-        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 2]["getgroupdataarr"], templength - 2);
-
-      }
-      else{
-        swithmodeflag = 1;
-        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
-      }
-
-    },
-    handleClickLine(){
-      let templength = selectLGApredictiondata.length;
-      let globalstoragedata = selectLGApredictiondata;
-      if (swithlinemodeflag == 1){
-        if (templength == 1){
-          swithlinemodeflag = 0;
-          DrawStepLine(globalstoragedata[0]["getwholedataarr"], globalstoragedata[0]["getgroupdataarr"], 0);
-        }
-        else{
-          swithlinemodeflag = 0;
-          DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
-
-        }
-      }
-      else{
-        swithlinemodeflag = 1;
-        if (templength == 1){
-          DrawCurveLine(globalstoragedata[0]["getwholedataarr"],[], 0);
-        }
-        else{
-          DrawCurveLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getwholedataarr"], templength - 1);
-        }
-      }
-
 
 
     }
