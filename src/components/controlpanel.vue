@@ -20,13 +20,13 @@
                 </el-col>
               </el-form-item>
               <el-form-item label="Unit-based:" label-width="70px">
-                <el-radio-group v-model="form.resource">
+                <el-radio-group v-model="form.resource1">
                   <el-radio :label="1">LGAs</el-radio>
                   <el-radio :label="2">Postal Zones</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="Columns:" label-width="70px">
-                <el-radio-group v-model="form.resource">
+                <el-radio-group v-model="form.resource2">
                   <el-radio :label="1">Optimized</el-radio>
                   <el-radio :label="2">All</el-radio>
                 </el-radio-group>
@@ -125,9 +125,10 @@ export default {
   name: "container",
   data() {
     return {
-      radio: 1,
       slide: 100,
       form: {
+        resource1: 1,
+        resource2: 1,
         name: '',
         region: '',
         date1: '',
