@@ -91,7 +91,6 @@ export default {
   },
   mounted() {},
   methods: {
-
     PredictClick(){
       predictflag = 1;
       d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
@@ -426,7 +425,8 @@ export default {
     },
 
     SwitchMode(){
-      console.log(selectLGApredictiondata);
+      //console.log(selectLGApredictiondata);
+      d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
       let templength = selectLGApredictiondata.length;
       let globalstoragedata = selectLGApredictiondata;
       if (templength == 1){
@@ -443,6 +443,7 @@ export default {
           DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
         }
       }
+      d3.select('#loading').attr('class', 'mapbox-gl-draw_symbol_correct');
     },
 
     SwitchLine(){
@@ -462,7 +463,7 @@ export default {
       else{
         swithlinemodeflag = 1;
         if (templength == 1){
-          DrawCurveLine(globalstoragedata[0]["getwholedataarr"],[], 0);
+          DrawCurveLine(globalstoragedata[0]["getwholedataarr"],globalstoragedata[0]["getgroupdataarr"], 0);
         }
         else{
           DrawCurveLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getwholedataarr"], templength - 1);

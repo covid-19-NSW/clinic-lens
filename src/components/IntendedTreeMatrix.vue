@@ -1,7 +1,5 @@
 <template>
   <div class="page1-container">
-
-
     <div class="intended_content" id="intended_content"></div>
     <div class="infobox"></div>
   </div>

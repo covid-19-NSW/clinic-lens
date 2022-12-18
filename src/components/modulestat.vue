@@ -42,25 +42,11 @@ export default {
   },
   mounted() {
     window.modelname = "rf";
-    this.do();
+    this.drawmodelhistogram();
   },
   methods: {
-    changeMethod(command){
-      let tempname = "";
-      if (command == 'rf'){
-        tempname = "Random Forest";
-      }
-      else
-      {
-        tempname = "XGBoost";
-      }
-      document.getElementById("modeldown").innerHTML = tempname + '<i class="el-icon-arrow-down el-icon--right"></i>';
-      window.modelname = command;
-    },
-
-    //
-    do(){
-      var margin = {top: 5, right: 5, bottom: 5, left: 5},
+    drawmodelhistogram(){
+      var margin = {top: 3, right: 3, bottom: 1, left: 5},
           width = document.getElementById("module_content").clientWidth,
           height = document.getElementById("module_content").clientHeight;
 
@@ -76,9 +62,23 @@ export default {
 
 // Parse the Data
       d3v4.csv("../static/Dataset/Module.csv", function(data) {
+        window.xgmodelarr = [];
+        window.rfmodelarr = [];
         data.sort(function(b, a) {
           return a.Importance - b.Importance;
         });
+        for (let i = 0; i < data.length; i++){
+          if (data[i].Model == "randomforest"){
+            rfmodelarr.push(data[i]);
+          }
+          else{
+            xgmodelarr.push(data[i]);
+          }
+
+        }
+        console.log(data);
+        console.log(rfmodelarr);
+        console.log(xgmodelarr);
         // Add X axis
         var x = d3v4.scaleLinear()
             .domain([0, 1])
@@ -88,13 +88,13 @@ export default {
         // Y axis
         var y = d3v4.scaleBand()
             .range([ 0, height - margin.top - margin.bottom ])
-            .domain(data.map(function(d) { return d.Name; }))
+            .domain(rfmodelarr.map(function(d) { return d.Name; }))
             .padding(.2);
 
-
+        modulesvg.selectAll("rect").remove();
         //Bars
         modulesvg.selectAll("rect")
-            .data(data)
+            .data(rfmodelarr)
             .enter()
             .append("rect")
             .attr("x", x(0) )
@@ -117,14 +117,26 @@ export default {
         modulesvg.append("g")
             .call(d3v4.axisRight(y))
 
-        // .attr("x", function(d) { return x(d.Country); })
-        // .attr("y", function(d) { return y(d.Value); })
-        // .attr("width", x.bandwidth())
-        // .attr("height", function(d) { return height - y(d.Value); })
-        // .attr("fill", "#69b3a2")
 
       })
+    },
+    changeMethod(command){
+      let tempname = "";
+      let tempdata=[];
+      if (command == 'rf'){
+        tempname = "Random Forest";
+        tempdata = rfmodelarr;
+      }
+      else
+      {
+        tempname = "XGBoost";
+        tempdata = xgmodelarr;
+      }
+      document.getElementById("modeldown").innerHTML = tempname + '<i class="el-icon-arrow-down el-icon--right"></i>';
+      window.modelname = command;
+      changemodelpara(tempdata);
     }
+
   },
 };
 </script>

@@ -69,19 +69,19 @@
                     Lens:
                   </div>
                   <div id="lenscolor" class="color-group">
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Confirmed Cases Number" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#d73027;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="Top Left 提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Testing Cases Number" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#006d2c;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="Top Left 提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Timeline with Eased Interventions" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#7bccc4;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="Top Left 提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Timeline with Restricted Interventions" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#2b8cbe;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="Top Left 提示文字" placement="top-start" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Confirmed Cases Rate Scale" placement="top-start" popper-class="tooltip">
                       <span class="c-bar c-bar-first" style="background: linear-gradient(to right, #ffeda0 ,#E1343F);"></span>
                     </el-tooltip>
                   </div>
@@ -92,13 +92,13 @@
                     Polygons:
                   </div>
                   <div id="polgyonscolor" class="color-group">
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="LGA(s) with Multiple Clinics" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#238b45;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="LGA(s) with One Clinic" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#001F78;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Selected LGA(s)" placement="top-start" offset="12" popper-class="tooltip">
                       <span style="background-color:#FA6E0A;"></span>
                     </el-tooltip>
                   </div>
@@ -108,7 +108,7 @@
                     Heatmap:
                   </div>
                   <div id="heatmapcolor" class="color-group">
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" popper-class="tooltip">
+                    <el-tooltip class="item" effect="dark" content="Heatmap Scale of Clinic Testing Capabilities" placement="top-start" popper-class="tooltip">
                       <span class="c-bar" style="background: linear-gradient(to right, #ffeda0 ,#E1343F);"></span>
                     </el-tooltip>
                   </div>
@@ -124,10 +124,10 @@
                   Factors:
                 </div>
                 <div id="factorcolor" class="color-group">
-                  <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                  <el-tooltip class="item" effect="dark" content="Objective Binary Factors" placement="top-start" offset="12" popper-class="tooltip">
                     <span style="background-color:#3182bd;"></span>
                   </el-tooltip>
-                  <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                  <el-tooltip class="item" effect="dark" content="Opening Hours Scale" placement="top-start" offset="12" popper-class="tooltip">
                     <span class="c-bar c-bar-first" style="background: linear-gradient(to right, #d7191c ,#fdae61,#a6d96a,#1a9641);"></span>
                   </el-tooltip>
                 </div>
@@ -143,11 +143,11 @@
                     Effect:
                   </div>
                   <div id="effectcolor" class="color-group">
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
-                      <span style="background-color:#e31a1c;"></span>
+                    <el-tooltip class="item" effect="dark" content="Positive on Testing Capability" placement="top-start" offset="12" popper-class="tooltip">
+                      <span style="background-color:#ff6b6b;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
-                      <span style="background-color:#006837;"></span>
+                    <el-tooltip class="item" effect="dark" content="Negative on Testing Capability" placement="top-start" offset="12" popper-class="tooltip">
+                      <span style="background-color:#a7c957;"></span>
                     </el-tooltip>
                   </div>
                 </div>
@@ -156,11 +156,11 @@
                     Trends:
                   </div>
                   <div id="trendcolor" class="color-group">
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
-                      <span style="background-color:#225ea8;"></span>
+                    <el-tooltip class="item" effect="dark" content="Predicted Sum of Each Clinic" placement="top-start" offset="12" popper-class="tooltip">
+                      <span style="background-color:#0466c8;"></span>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
-                      <span style="background-color:#fec44f;"></span>
+                    <el-tooltip class="item" effect="dark" content="After Adjusted Clinic Factors" placement="top-start" offset="12" popper-class="tooltip">
+                      <span style="background-color:#f72585;"></span>
                     </el-tooltip>
                   </div>
                 </div>
@@ -171,16 +171,16 @@
                 Theme:
               </div>
               <div id="Themecolor" class="color-group">
-                <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                <el-tooltip class="item" effect="dark" content="Theme: Titles" placement="top-start" offset="12" popper-class="tooltip">
                   <span style="background-color:#3f2e2d;"></span>
                 </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                <el-tooltip class="item" effect="dark" content="Theme: BorderLines" placement="top-start" offset="12" popper-class="tooltip">
                   <span style="background-color:#525252;"></span>
                 </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                <el-tooltip class="item" effect="dark" content="Color Used in Regression Model View" placement="top-start" offset="12" popper-class="tooltip">
                   <span style="background-color:#74a9cf;"></span>
                 </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="这是是提示文字" placement="top-start" offset="12" popper-class="tooltip">
+                <el-tooltip class="item" effect="dark" content="Color Used in Indented Tree-Matrix View" placement="top-start" offset="12" popper-class="tooltip">
                   <span style="background-color:#9ecae1;"></span>
                 </el-tooltip>
               </div>

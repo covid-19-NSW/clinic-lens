@@ -330,6 +330,8 @@ function DrawStepLine(lgadata,lgagroupdata, w, flag){
 
 }
 function DrawCurveLine(lgadata,lgagroupdata, w){
+	console.log(lgadata)
+	console.log(lgagroupdata)
 	d3v4_2.select("#step_content")
 		.select("#stepsvg").remove();
 	var divlegend = d3v4_2
