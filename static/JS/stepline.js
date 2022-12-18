@@ -55,8 +55,8 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 	let xScale = x.domain(lgadata.map(function(d) {
 		return d.date;
 	}));
-	y.domain([0, d3v4_2.max(lgadata, function(d) {
-		return d.value * 1.5;
+	y.domain([0, d3v4_2.max(lgagroupdata, function(d) {
+		return d.value * 1.2;
 	})]);
 
 	g.append("g")
@@ -207,13 +207,38 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 		}
 
 	}
+	if (selectLGApredictiondata.length != 1){
+		stepsvg.append("path")
+			.datum(selectLGApredictiondata[w+1].getwholedataarr)
+			.attr("fill", "none")
+			.attr("stroke", colorpanel.stepline.afterpath)
+			.attr("stroke-width", 1.2)
+			.attr("d", d3v4_2.line()
+				.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
+				.y(function(d) { return y(d.value); }) // set the y values for the line generator
+				.curve(d3v4_2.curveStep) // apply smoothing to the line
+			)
+			.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top) + ")");
+	}
+
+	stepsvg.append("path")
+		.datum(lgagroupdata)
+		.attr("fill", "none")
+		.attr("stroke", colorpanel.stepline.actualpath)
+		.attr("stroke-width", 1.2)
+		.attr("d", d3v4_2.line()
+			.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
+			.y(function(d) { return y(d.value); }) // set the y values for the line generator
+			.curve(d3v4_2.curveStep) // apply smoothing to the line
+		)
+		.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top) + ")");
 
 	// Add the line
 	stepsvg.append("path")
-		.datum(lgadata)
+		.datum(selectLGApredictiondata[w].getwholedataarr)
 		.attr("fill", "none")
-		.attr("stroke", colorpanel.stepline.previouspath)
-		.attr("stroke-width", 1.5)
+		.attr("stroke", colorpanel.stepline.groundturth)
+		.attr("stroke-width", 1.2)
 		.attr("d", d3v4_2.line()
 			.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
 			.y(function(d) { return y(d.value); }) // set the y values for the line generator
@@ -228,7 +253,7 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 			.datum(selectLGApredictiondata[w]["getwholedataarr"])
 			.attr("fill", "none")
 			.attr("stroke", colorpanel.stepline.afterpath)
-			.attr("stroke-width", 1.5)
+			.attr("stroke-width", 1.2)
 			.attr("d", d3v4_2.line()
 				.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
 				.y(function(d) { return y(d.value); }) // set the y values for the line generator
@@ -240,6 +265,8 @@ function DrawStepLine(lgadata,lgagroupdata, w){
 }
 
 function DrawCurveLine(lgadata,lgadata2, w){
+	console.log(lgadata);
+	console.log(lgadata2);
 	d3v4_2.select("#step_content")
 		.select("#stepsvg").remove();
 	var divlegend = d3v4_2
@@ -264,8 +291,8 @@ function DrawCurveLine(lgadata,lgadata2, w){
 	let xScale = x.domain(lgadata.map(function(d) {
 		return d.date;
 	}));
-	y.domain([0, d3v4_2.max(lgadata, function(d) {
-		return d.value * 1.5;
+	y.domain([0, d3v4_2.max(lgadata2, function(d) {
+		return d.value * 1.2;
 	})]);
 
 	g.append("g")
@@ -276,6 +303,7 @@ function DrawCurveLine(lgadata,lgadata2, w){
 			return !(i%30)
 		})));
 
+
 	g.append("g")
 		.attr("class", "axis axis--y")
 		.call(d3v4_2.axisLeft(y))
@@ -285,11 +313,24 @@ function DrawCurveLine(lgadata,lgadata2, w){
 		.attr("dy", "0.71em")
 		.attr("text-anchor", "end")
 		.text("Frequency");
+
+	stepsvg.append("path")
+		.datum(lgadata2)
+		.attr("fill", "none")
+		.attr("stroke", colorpanel.stepline.actualpath)
+		.attr("stroke-width", 1.2)
+		.attr("d", d3v4_2.line()
+			.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
+			.y(function(d) { return y(d.value); }) // set the y values for the line generator
+			.curve(d3v4_2.curveStep) // apply smoothing to the line
+		)
+		.attr("transform", "translate("+ ( content_margin.left) + "," + (content_margin.top) + ")");
+
 	stepsvg.append("path")
 		.datum(lgadata)
 		.attr("fill", "none")
-		.attr("stroke", colorpanel.stepline.previouspath)
-		.attr("stroke-width", 1.5)
+		.attr("stroke", colorpanel.stepline.groundturth)
+		.attr("stroke-width", 1.2)
 		.attr("d", d3v4_2.line()
 			.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
 			.y(function(d) { return y(d.value); }) // set the y values for the line generator
@@ -302,7 +343,7 @@ function DrawCurveLine(lgadata,lgadata2, w){
 			.datum(lgadata2)
 			.attr("fill", "none")
 			.attr("stroke", colorpanel.stepline.afterpath)
-			.attr("stroke-width", 1.5)
+			.attr("stroke-width", 1.2)
 			.attr("d", d3v4_2.line()
 				.x(function(d, i) { return x(d.date) + x.bandwidth()/2; }) // set the x values for the line generator
 				.y(function(d) { return y(d.value); }) // set the y values for the line generator

@@ -288,7 +288,7 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 			.on("mousedown", function(od, i, n) {
 				d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
 				var temptitle=document.getElementById("steplinetitle");
-				temptitle.innerHTML='Testing Capabilities Prediction of ' + od.caseslist[0]["lga_name19"] + ", LGA" + od.caseslist[0]["lga_code19"];
+				temptitle.innerHTML='Testing Capabilities Prediction View of ' + od.caseslist[0]["lga_name19"] + ", LGA" + od.caseslist[0]["lga_code19"];
 				//console.log(od);
 				unique(SelectedLGAfromStorage);
 				SelectedLGAfromStorage.push(od.LGAcode);
@@ -308,7 +308,8 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 				tempCurrentLGAcode = ' and lga_code19 = '+ od.LGAcode;
 				const cliniccount = od["count"];
 				totalcliniccount += cliniccount;
-				const colNeed=["daycount","personskm2","cliniccount","event_level","whichday","referralRequired","ageLimit","realhours","bookingRequired","walkinAllowed","driveThroughTesting","wheelchairAccessible"];
+				//const colNeed=["daycount","personskm2","cliniccount","event_level","whichday","referralRequired","ageLimit","realhours","bookingRequired","walkinAllowed","driveThroughTesting","wheelchairAccessible"];
+				const colNeed=["daycount","personskm2","cliniccount","event_level","whichday","referralRequired","ageLimit","realhourspast3days","breakhourspast3days","weekHours","bookingRequired","walkinAllowed","driveThroughTesting","wheelchairAccessible"];
 				const openhoursNeed = [["mondayOpeningHours","mondayBreakStartTime","mondayBreakEndTime","mondayClosingHours"],
 					["tuesdayOpeningHours","tuesdayBreakStartTime","tuesdayBreakEndTime","tuesdayClosingHours"],
 					["wednesdayOpeningHours","wednesdayBreakStartTime","wednesdayBreakEndTime","wednesdayClosingHours"],
@@ -330,7 +331,7 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 						alert("error message : "+errorThrown.toString())
 					},
 					success: function(data){
-						//console.log(data);
+						console.log(data);
 						let getgroupdataarr = [];
 						let getwholedataarr = [];
 						let tempclinicinfo = data.data.slice(0, cliniccount);
@@ -370,13 +371,13 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 							"children": totalclinicdata
 						};
 						d3v4_2.select(".intended_content").select("#treesvg").remove();
-						//tempmatrix["children"][0]["children"]
-						// console.log(tempclinictitle);
-						// console.log(tempmatrix);
+
 						IntendedTreeMatrix(tempmatrix,totalcliniccount);
 						//console.log(data);
 						let temp = [];
+
 						for (let i = 0; i < data.data.length; i += cliniccount) {
+
 							temp.push({
 								"Frame1": data.data.slice(i, i + cliniccount),
 								"Y1": Number(data.data[i]["TestCases"]),
@@ -384,7 +385,7 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 							});
 							//console.log(temp);
 							$.ajax({
-								url: "http://127.0.0.1:5001/predict1",
+								url: "http://127.0.0.1:5001/" + modelname+ "predict1",
 								method: "Post",
 								data: {
 									"Frame1": data.data.slice(i, i + cliniccount),
@@ -399,11 +400,14 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 									//console.log(res);
 									//console.log(tempclinictitle);
 									let tempgetgroupdataarr = {};
+									let tempgroupsum = 0;
 									for (let q = 0; q < res.length; q++){
+										tempgroupsum += res[q];
 										tempgetgroupdataarr["lga_code19"] = data.data[i].lga_code19;
 										tempgetgroupdataarr[tempclinictitle[q]] = res[q];
-										tempgetgroupdataarr["date"] = data.data[i].notification_date;
+										tempgetgroupdataarr["date"] = moment(data.data[i].notification_date).format("YYYY-MM-DD");
 									}
+									tempgetgroupdataarr["value"] = tempgroupsum;
 									getgroupdataarr.push(tempgetgroupdataarr);
 									//console.log(getgroupdataarr);
 
@@ -413,7 +417,7 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 									if (getgroupdataarr.length == data.data.length/cliniccount){
 										for (let j = 0; j < od.caseslist.length; j++){
 											getwholedataarr.push({
-												date: od.caseslist[j]["notification_date"],
+												date: moment(od.caseslist[j]["notification_date"]).format("YYYY-MM-DD"),
 												value: od.caseslist[j]["testcases"]/cliniccount,
 												lga_code19: od["LGAcode"]
 											})
@@ -424,14 +428,16 @@ function playRects(eleID, data, styleControler, cols, padding, mapcirclecolor) {
 											.select("#stepsvg").remove();
 
 										selectLGApredictiondata.push({
+											"lga_code19": od["LGAcode"],
 											"id": w,
+											"status": "orginal",
 											"getwholedataarr": getwholedataarr,
 											"getgroupdataarr": getgroupdataarr
 										});
 										window.globalcurrentwholedataarr = getwholedataarr;
 										window.globalcurrentgroupdataarr = getgroupdataarr;
 
-										DrawStepLine(getwholedataarr,getgroupdataarr, w);
+										DrawStepLine(getwholedataarr,getgroupdataarr, w, 0);
 										w++;
 										//console.log(selectLGApredictiondata);
 										d3.select('#loading').attr('class', 'mapbox-gl-draw_symbol_correct');

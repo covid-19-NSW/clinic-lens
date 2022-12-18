@@ -48,10 +48,11 @@ export default {
           }
         },
         "stepline":{
-          "increase": "#e31a1c",
-          "decrease": "#006837",
-          "previouspath": '#225ea8',
-          'afterpath': '#fec44f'
+          "increase": "#ff6b6b",
+          "decrease": "#a7c957",
+          "groundturth": '#073b4c',
+          "actualpath": '#0466c8',
+          'afterpath': '#f72585'
         },
         "default": {
           "eventcategory1": '#7bccc4',
@@ -343,6 +344,7 @@ export default {
 
       function save(event) {
         if (readyforstorage == 1){
+          d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
           console.log("savelicked" + event.target.className);
           // console.log(highlighted_lga);
           // console.log(LGAarr);
@@ -1076,7 +1078,7 @@ export default {
                     }
 
                     $.ajax({
-                      url: "http://127.0.0.1:5001/predict1",
+                      url: "http://127.0.0.1:5001/" + modelname+ "predict1",
                       method: "Post",
                       data: {
                         "Frame1": data.data,
@@ -1337,6 +1339,8 @@ export default {
             rectPadding,
             mapcirclecolor
         );
+        d3.select('#loading').attr('class', 'mapbox-gl-draw_symbol_correct');
+        //finish
       }
 
       function CalMatrix(data, temp, tempsaveforeach, flag) {

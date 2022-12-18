@@ -12,11 +12,26 @@
               </el-form-item>
               <el-form-item label="Time Scale:" label-width="30%" class="date_picker_box">
                 <el-col :span="11">
-                  <el-date-picker type="date" placeholder="From" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                  <el-date-picker
+                      prefix-icon="none"
+                      clear-icon="none"
+                      popper-class="elDatePicker"
+                      type="date"
+                      placeholder="From"
+                      v-model="form.date1"
+                      style="width: 100%;"
+                  ></el-date-picker>
                 </el-col>
                 <el-col class="line" :span="2"> - </el-col>
                 <el-col :span="11">
-                  <el-date-picker type="date" placeholder="To" v-model="form.date2" style="width: 100%;"></el-date-picker>
+                  <el-date-picker
+                      prefix-icon="none"
+                      clear-icon="none"
+                      popper-class="elDatePicker"
+                      type="date"
+                      placeholder="To"
+                      v-model="form.date2"
+                      style="width: 100%;"></el-date-picker>
                 </el-col>
               </el-form-item>
               <el-form-item label="Unit-based:" label-width="30%">
@@ -33,6 +48,7 @@
               </el-form-item>
               <el-form-item label="Lens Size:" label-width="30%">
                 <el-slider
+                    :format-tooltip="formatTooltip"
                     v-model="slide">
                 </el-slider>
               </el-form-item>
@@ -186,8 +202,8 @@ export default {
         resource2: 1,
         name: '',
         region: '',
-        date1: '',
-        date2: '',
+        date1: '2020-01-01',
+        date2: '2022-10-28',
         type: [],
         resource: '',
         desc: '',
@@ -197,7 +213,6 @@ export default {
   },
   mounted() {
     this.do();
-    this.hoverColorSpan()
   },
   methods: {
     onSubmit(){},
@@ -207,6 +222,9 @@ export default {
     handleClick(){
       console.log('test')
     },
+    formatTooltip(val) {
+      console.log('val',val)
+    }
   },
 };
 </script>
@@ -262,6 +280,24 @@ export default {
   line-height: 30px;
   font-size: 10px;
 }
+#form /deep/ .el-select {
+  width: 100%;
+}
+#form /deep/ .line  {
+  text-align: center;
+}
+#form /deep/ .el-select .el-input__inner {
+  padding-left: 8px;
+}
+#form /deep/ .el-date-editor .el-input__inner {
+  padding: 0 8px;
+}
+.el-date-table td.available:hover {
+  color: #252525;
+}
+.el-date-table td.current span {
+  background: #252525;
+}
 #form /deep/ .el-select-dropdown__item {
   height: 30px;
 }
@@ -279,6 +315,9 @@ export default {
   color: #252525;
   /* 选中时字体颜色不明显可以加粗 */
   /* font-weight: 600; */
+}
+#form /deep/ .el-radio__inner:hover {
+  border-color: #252525;
 }
 .el-button:focus, .el-button:hover {
   color: #ffffff;
@@ -357,5 +396,14 @@ export default {
 .el-tooltip__popper.tooltip{
   opacity: 0.8;
 }
+.elDatePicker.el-picker-panel .el-date-table .current span {
+  background: #252525;
+}
+.elDatePicker.el-picker-panel .el-date-table td.available:hover span {
+  color:#ffffff;
+  background: #737373;
+}
+.el-tooltip__popper.is-dark {
+  opacity: 0.8;
+}
 </style>
-

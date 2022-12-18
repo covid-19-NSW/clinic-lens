@@ -4,17 +4,18 @@
       <div class="el-item__label">Select:
       </div>
       <div>
-        <el-dropdown>
-        <span class="el-input__inner">
-          Random Forest<i class="el-icon-arrow-down el-icon--right"></i>
+        <el-dropdown @command="(command)=>{changeMethod(command)}">
+        <span class="el-input__inner" id = 'modeldown'>
+         Random Forest<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>Decision Tree</el-dropdown-item>
-            <el-dropdown-item divided>GBDT</el-dropdown-item>
-            <el-dropdown-item>CatBoost</el-dropdown-item>
-            <el-dropdown-item>Lightgbm</el-dropdown-item>
-            <el-dropdown-item>XGBoost</el-dropdown-item>
-            <el-dropdown-item divided>Linear</el-dropdown-item>
+<!--            <el-dropdown-item>Decision Tree</el-dropdown-item>-->
+<!--            <el-dropdown-item divided>GBDT</el-dropdown-item>-->
+<!--            <el-dropdown-item>CatBoost</el-dropdown-item>-->
+<!--            <el-dropdown-item>Lightgbm</el-dropdown-item>-->
+            <el-dropdown-item command="rf">Random Forest</el-dropdown-item>
+            <el-dropdown-item command="xg">XGBoost</el-dropdown-item>
+<!--            <el-dropdown-item divided>Linear</el-dropdown-item>-->
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -40,9 +41,23 @@ export default {
     };
   },
   mounted() {
+    window.modelname = "rf";
     this.do();
   },
   methods: {
+    changeMethod(command){
+      let tempname = "";
+      if (command == 'rf'){
+        tempname = "Random Forest";
+      }
+      else
+      {
+        tempname = "XGBoost";
+      }
+      document.getElementById("modeldown").innerHTML = tempname + '<i class="el-icon-arrow-down el-icon--right"></i>';
+      window.modelname = command;
+    },
+
     //
     do(){
       var margin = {top: 5, right: 5, bottom: 5, left: 5},

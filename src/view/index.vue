@@ -33,7 +33,7 @@
             <p class="title">Indented Tree-Matrix Comparison View</p>
             <ul class="icon-box">
               <li @click="PredictClick()">
-                <img src="../../static/Image/prediction.png" alt="">
+                <img src="../../static/Image/prediction.png" alt="" style = "width: 18px; height: 18px">
               </li>
             </ul>
           </div>
@@ -95,11 +95,12 @@ export default {
     PredictClick(){
       predictflag = 1;
       d3.select('.mapbox-gl-draw_symbol_correct').attr('class', 'ld ld-ring ld-spin').attr('id', 'loading');
-      //console.log(cloneClinicGeo);
+      console.log(dataShared["children"]);
       for (let i = 0; i < dataShared["children"].length; i++){
         let tempLGA = ' and LGA_code19 =' + dataShared["children"][i]["LGAcode"];
         let cliniccount = dataShared["children"][i]["cliniccount"];
         let tempLGAarr = dataShared["children"][i]["children"];
+        //console.log(tempLGAarr)
         // let tempLGAarrcomparing = pre["children"][i]["children"];
         $.ajax({
           url: "http://localhost:3001/querycases?lga=" + tempLGA +"&date="+ filterdate,
@@ -113,6 +114,7 @@ export default {
             alert("error message : "+errorThrown.toString())
           },
           success: function(res){
+            //console.log(res);
             // console.log(data);
             // console.log(tempLGAarr);
             // console.log(tempLGAarrcomparing);
@@ -123,18 +125,37 @@ export default {
             let getgroupdataarr = [];
             let getwholedataarr = [];
             for (let k = 0; k < tempLGAarr.length; k++){
+              //console.log(tempLGAarr);
               let realhoursarr = [];
+              let realbreakhourarr = [];
               let wholeweekhours = 0;
               //Order: [Number(data["referralRequired"]),Number(data["ageLimit"]),Number(data["bookingRequired"]),Number(data["walkinAllowed"]),Number(data["driveThroughTesting"]),Number(data["wheelchairAccessible"])];
               let tempforuid = tempLGAarr[k]["name"].split(",");
               tempclinictitle.push(tempforuid[1]);
               for (let v = 0; v<tempLGAarr[k]["children"][1]["children"].length; v++){
                 let realhourcurrent = 0;
+                let realbreakhour = 0;
+                let temparrforeachlga = tempLGAarr[k]["children"][1]["children"][v]["data"];
+                // console.log(temparrforeachlga);
+                // console.log(temparrforeachlga.indexOf(1));
+                // console.log(temparrforeachlga.lastIndexOf(1)+1);
+                temparrforeachlga = temparrforeachlga.slice(temparrforeachlga.indexOf(1),temparrforeachlga.lastIndexOf(1)+1);
+                //console.log(temparrforeachlga);
+
                 for (let t = 0; t < tempLGAarr[k]["children"][1]["children"][v]["data"].length - 1; t++){
                   realhourcurrent+= tempLGAarr[k]["children"][1]["children"][v]["data"][t];
+
                 }
+
+                for (let ss = 0; ss < temparrforeachlga.length; ss++){
+                  if (temparrforeachlga[ss] == 0){
+                    realbreakhour++;
+                  }
+                }
+
                 // let realhoursstr = tempLGAarr[k]["children"][1]["children"][v]["data"][48].split('/');
                 // console.log(realhoursstr);
+                realbreakhourarr.push(realbreakhour/2)
                 realhoursarr.push(realhourcurrent/2);
                 wholeweekhours += realhourcurrent/2;
               } //repeated
@@ -152,8 +173,10 @@ export default {
                 "driveThroughTesting": tempLGAarr[k]["children"][0]["children"][0]["data"][4],
                 "wheelchairAccessible":  tempLGAarr[k]["children"][0]["children"][0]["data"][5],
                 "realhoursarr" : realhoursarr,
+                "realbreakhourarr": realbreakhourarr,
                 "wholeweekhours": wholeweekhours
               })
+              //console.log(tempconverarr);
 
             }
             //console.log(tempconverarr);
@@ -163,7 +186,7 @@ export default {
             for (let j = 0; j < newres.data.length; j += cliniccount) {
               // console.log(j)
               let tempframe2 = newres.data.slice(j, j + cliniccount);
-              // console.log(tempframe2[j]["notification_date"]);
+              // console.log(Number(tempframe2[j]["whichday"]));
               // console.log(typeof tempframe2[j]["notification_date"]);
               // console.log(getMyDay(new Date(tempframe2[j]["notification_date"])));
               // console.log(tempframe2[j]);
@@ -171,7 +194,8 @@ export default {
               for (let a = 0; a < tempconverarr.length;a++){
                 for (let b = 0; b < cliniccount; b++){
                   if (tempconverarr[a]["uniqueID"] === tempframe2[b]["uniqueID"]){
-                    tempframe2[b]["realhours"] = tempconverarr[a]["realhoursarr"][getMyDay(new Date(tempframe2[b]["notification_date"]))].toString();
+                    //console.log(tempframe2[b]);
+                    //tempframe2[b]["realhours"] = tempconverarr[a]["realhoursarr"][getMyDay(new Date(tempframe2[b]["notification_date"]))].toString();
                     tempframe2[b]["referralRequired"] = tempconverarr[a]["referralRequired"].toString();
                     tempframe2[b]["ageLimit"] = tempconverarr[a]["ageLimit"].toString();
                     tempframe2[b]["bookingRequired"] = tempconverarr[a]["bookingRequired"].toString();
@@ -179,6 +203,34 @@ export default {
                     tempframe2[b]["driveThroughTesting"] = tempconverarr[a]["driveThroughTesting"].toString();
                     tempframe2[b]["wheelchairAccessible"] = tempconverarr[a]["wheelchairAccessible"].toString();
                     tempframe2[b]["weekHours"] = tempconverarr[a]["wholeweekhours"].toString();
+                    if (Number(tempframe2[b]["whichday"]) == 1){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][6] + tempconverarr[a]["realhoursarr"][5] + tempconverarr[a]["realhoursarr"][4];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][6] + tempconverarr[a]["realbreakhourarr"][5] + tempconverarr[a]["realbreakhourarr"][4];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 2){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][6] + tempconverarr[a]["realhoursarr"][5] + tempconverarr[a]["realhoursarr"][0];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][6] + tempconverarr[a]["realbreakhourarr"][5] + tempconverarr[a]["realbreakhourarr"][0];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 3){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][6] + tempconverarr[a]["realhoursarr"][1] + tempconverarr[a]["realhoursarr"][0];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][6] + tempconverarr[a]["realbreakhourarr"][1] + tempconverarr[a]["realbreakhourarr"][0];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 4){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][2] + tempconverarr[a]["realhoursarr"][1] + tempconverarr[a]["realhoursarr"][0];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][2] + tempconverarr[a]["realbreakhourarr"][1] + tempconverarr[a]["realbreakhourarr"][0];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 5){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][2] + tempconverarr[a]["realhoursarr"][1] + tempconverarr[a]["realhoursarr"][3];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][2] + tempconverarr[a]["realbreakhourarr"][1] + tempconverarr[a]["realbreakhourarr"][3];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 6){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][2] + tempconverarr[a]["realhoursarr"][3] + tempconverarr[a]["realhoursarr"][4];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][2] + tempconverarr[a]["realbreakhourarr"][3] + tempconverarr[a]["realbreakhourarr"][4];
+                    }
+                    else if(Number(tempframe2[b]["whichday"]) == 7){
+                      tempframe2[b]["realhourspast3days"] = tempconverarr[a]["realhoursarr"][3] + tempconverarr[a]["realhoursarr"][4] + tempconverarr[a]["realhoursarr"][5];
+                      tempframe2[b]["breakhourspast3days"] = tempconverarr[a]["realbreakhourarr"][3] + tempconverarr[a]["realbreakhourarr"][5] + tempconverarr[a]["realbreakhourarr"][4];
+                    }
                     // console.log(newres.data[b])
                   }
                 }
@@ -187,7 +239,7 @@ export default {
               // console.log(tempframe1);
               // console.log(tempframe2);
               $.ajax({
-                url: "http://127.0.0.1:5001/predict2",
+                url: "http://127.0.0.1:5001/" + modelname+ "predict2",
                 method: "Post",
                 data: {
                   "Frame1": tempframe1,
@@ -217,7 +269,7 @@ export default {
                   //console.log(getgroupdataarr)
                   //console.log(res.data.length/cliniccount);
                   if (getgroupdataarr.length === res.data.length/cliniccount){
-                    dealdatainprocess(getgroupdataarr,res,tempclinictitle,cliniccount,processcallback);
+                    dealdatainprocess(getgroupdataarr,res,tempclinictitle,cliniccount,res.data[j].lga_code19,processcallback);
                     //console.log(getgroupdataarr);
                     let templength = Math.ceil(getgroupdataarr.length/2);
                     //console.log(templength);
@@ -256,7 +308,7 @@ export default {
 
       }
 
-      function dealdatainprocess(getgroupdataarr,res,tempclinictitle,cliniccount,callback){
+      function dealdatainprocess(getgroupdataarr,res,tempclinictitle,cliniccount,lga,callback){
         getgroupdataarr = MsgSortDate(getgroupdataarr);
         getgroupdataarr["column"] = tempclinictitle;
         //getgroupdataarr IS NOW DATA
@@ -270,10 +322,13 @@ export default {
         let tempcombinename2 = [];
         let newsinglemode = [];
         let temptotalvalue = [];
+
         for (let t = 0; t < orginalgrouparr.length; t++){
           let tempclinicobj = {};
           let tempafterobj = {};
           let totalvaluebyclinics = 0;
+          let tempgroupsum = 0;
+          let tempvaluesum = 0;
           for (let r = 0; r < orginalgrouparr["column"].length; r++){
             //comparing mode
             tempclinicobj["lga_code19"] = orginalgrouparr[t]["lga_code19"];
@@ -287,25 +342,30 @@ export default {
             if (tempjudge > 0){
               tempclinicobj[orginalgrouparr["column"][r]] = orginalgrouparr[t][orginalgrouparr["column"][r]];
               tempclinicobj[orginalgrouparr["column"][r] + 'changedstatus'] = '+';
+
             }
             else if (tempjudge == 0){
               tempclinicobj[orginalgrouparr["column"][r]] = getgroupdataarr[t][orginalgrouparr["column"][r]];
               tempclinicobj[orginalgrouparr["column"][r] + 'changedstatus'] = '0';
+
             }
             else{
               tempclinicobj[orginalgrouparr["column"][r]] = getgroupdataarr[t][orginalgrouparr["column"][r]];
               tempclinicobj[orginalgrouparr["column"][r] + 'changedstatus'] = '-';
+
             }
             tempclinicobj[orginalgrouparr["column"][r] + 'changed'] = Math.abs(tempjudge);
-
+            tempvaluesum += orginalgrouparr[t][orginalgrouparr["column"][r]];
             //single mode
             totalvaluebyclinics += getgroupdataarr[t][orginalgrouparr["column"][r]];
             tempafterobj["lga_code19"] = orginalgrouparr[t]["lga_code19"];
             tempafterobj["date"] = orginalgrouparr[t]["date"];
             tempcombinename2.push(orginalgrouparr["column"][r]);
             tempafterobj[orginalgrouparr["column"][r]] = getgroupdataarr[t][orginalgrouparr["column"][r]];
-
+            tempgroupsum += getgroupdataarr[t][orginalgrouparr["column"][r]];
           }
+          tempclinicobj["value"] = tempvaluesum;
+          tempafterobj["value"] = tempgroupsum;
           newcombinegrouparr.push(tempclinicobj);
           newsinglemode.push(tempafterobj);
           //cleanedtotal
@@ -318,22 +378,28 @@ export default {
         newcombinegrouparr["column"] = tempcombinename.slice(0,cliniccount*2);
         newsinglemode["column"] = orginalgrouparr["column"];
         // console.log(newcombinegrouparr);
-        callback(newcombinegrouparr,newsinglemode,temptotalvalue);
+        callback(newcombinegrouparr,newsinglemode,temptotalvalue,lga);
       }
 
-      function processcallback(newcombinegrouparr,newsinglemode,temptotalvalue){
+      function processcallback(newcombinegrouparr,newsinglemode,temptotalvalue,lga){
         selectLGApredictiondata.push({
+          "lga_code19": lga,
           "id": w,
+          "status": "changing",
           "getwholedataarr": globalcurrentwholedataarr,
           "getgroupdataarr": newcombinegrouparr
           // "getgroupdataarr": getgroupdataarr
+          //have not been revised ground truth
         },{
+          "lga_code19": lga,
           "id": w+1,
+          "status": "changed",
           "getwholedataarr": temptotalvalue,
           "getgroupdataarr": newsinglemode
+          //have been revised afterpath
         });
 
-        DrawStepLine(globalcurrentwholedataarr,newcombinegrouparr, w);
+        DrawStepLine(temptotalvalue,newsinglemode, w, 1);
         w +=2;
       }
 
@@ -360,20 +426,23 @@ export default {
     },
 
     SwitchMode(){
-      //console.log(selectLGApredictiondata);
+      console.log(selectLGApredictiondata);
       let templength = selectLGApredictiondata.length;
       let globalstoragedata = selectLGApredictiondata;
-
-      if (swithmodeflag == 1){
-        swithmodeflag = 0;
-        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 2]["getgroupdataarr"], templength - 2);
-
+      if (templength == 1){
+        DrawStepLine(globalstoragedata[0]["getwholedataarr"],globalstoragedata[0]["getgroupdataarr"], 0);
       }
       else{
-        swithmodeflag = 1;
-        DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
-      }
+        if (swithmodeflag == 1){
+          swithmodeflag = 0;
+          DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 2]["getgroupdataarr"], templength - 2);
 
+        }
+        else{
+          swithmodeflag = 1;
+          DrawStepLine(globalstoragedata[templength - 2]["getwholedataarr"],globalstoragedata[templength - 1]["getgroupdataarr"], templength - 1);
+        }
+      }
     },
 
     SwitchLine(){
@@ -494,8 +563,8 @@ li {
   margin-left: 10px;
 }
 .icon-box img {
-  width: 30px;
-  height: 30px;
+  width: 21px;
+  height: 21px;
 }
 .bar {
   padding: 0 0.1875rem 0.5rem;
