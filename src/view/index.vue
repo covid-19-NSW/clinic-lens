@@ -132,6 +132,7 @@ export default {
               let tempforuid = tempLGAarr[k]["name"].split(",");
               tempclinictitle.push(tempforuid[1]);
               for (let v = 0; v<tempLGAarr[k]["children"][1]["children"].length; v++){
+                //console.log(tempLGAarr[k]["children"][1]["children"]);
                 let realhourcurrent = 0;
                 let realbreakhour = 0;
                 let temparrforeachlga = tempLGAarr[k]["children"][1]["children"][v]["data"];
@@ -235,8 +236,8 @@ export default {
                 }
               }
               let tempframe1 = res.data.slice(j, j + cliniccount);
-              // console.log(tempframe1);
-              // console.log(tempframe2);
+              console.log(tempframe1);
+              console.log(tempframe2);
               $.ajax({
                 url: "http://127.0.0.1:5001/" + modelname+ "predict2",
                 method: "Post",
