@@ -5,18 +5,18 @@
 ## Build Setup
 npm install
 
-#Train data (Rename without space in file name)
+## Train data (Rename without space in file name)
 python3 clinic-lens/Back-end support/Python Training/rf_xg_model.py
 
-#Set up database and import table
+## Set up database and import table
 
-#revise connection information (index.js)
+## Revise connection information (index.js)
 
-# Start services
+## Start services
 node clinic-lens/Back-end support/Connection/index.js
 python3 clinic-lens/Back-end support/Connection/finalserver.py
 
-# Run
+## Run
 npm start
 
 ```
